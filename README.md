@@ -1,6 +1,8 @@
 Shorten
 =======
 
+![jquery shorten plugin](http://img.viralpatel.net/2010/12/show-more-link.png "jquery shorten plugin")
+
 A simple jquery plugin that automatically shortens text within an element and add "more" link.
 
 *Read tutorial: [jQuery Shorten](http://viralpatel.net/blogs/dynamically-shortened-text-show-more-link-jquery/).*
@@ -9,7 +11,7 @@ Usage
 -----
 Shortens the text within 'element' and add a 'more' link.
 
-	$(element).shorten();
+    $(element).shorten();
 
 Add a link with text 'read more' while shortening the content of element.
 
