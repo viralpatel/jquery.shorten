@@ -4,7 +4,7 @@
  * Copyright (c) 2013 Viral Patel
  * http://viralpatel.net
  *
- * Dual licensed under the MIT license:
+ * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
@@ -47,7 +47,8 @@
         var $this = $(this);
 
         var content = $this.html();
-        if (content.length > config.showChars) {
+		var contentlen = $this.text().length;
+        if (contentlen > config.showChars) {
             var c = content.substr(0, config.showChars);
             if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
             {
