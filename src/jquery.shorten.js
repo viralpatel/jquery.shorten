@@ -56,8 +56,8 @@
                 var bag = ''; // Put the characters to be shown here
                 var countChars = 0; // Current bag size
                 var openTags = []; // Stack for opened tags, so I can close them later
-
-                for (i = 0; i < content.length; i++) {
+				
+                for (var i = 0, r=0; r <= config.showChars; i++) {
                     if (content[i] == '<' && !inTag) {
                         inTag = true;
 
@@ -71,8 +71,9 @@
                                 openTags.shift(); // Pops the last tag from the open tag stack (the tag is closed in the retult HTML!)
                         } else {
                             // There are some nasty tags that don't have a close tag like <br/>
-                            if (tagName.toLowerCase() != 'br')
+                            if (tagName.toLowerCase() != 'br') {
                                 openTags.unshift(tagName); // Add to start the name of the tag that opens
+							}
                         }
                     }
                     if (inTag && content[i] == '>') {
@@ -81,7 +82,8 @@
 
                     if (inTag) bag += content[i]; // Add tag name chars to the result
                     else {
-                        if (countChars < config.showChars) {
+						r++;
+                        if (countChars <= config.showChars) {
                             bag += content[i];
                             countChars++;
                         } else // Now I have the characters needed
