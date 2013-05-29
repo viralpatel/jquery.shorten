@@ -8,14 +8,25 @@
  *   http://www.opensource.org/licenses/mit-license.php
  */
 
+ /* 
+ ** updated by Jeff Richardson
+ ** Updated to use strict, 
+ ** IE 7 has a "bug" It is returning underfined when trying to reference string characters in this format
+ ** content[i]. IE 7 allows content.charAt(i) This works fine in all modern browsers.
+ ** I've also added brackets where they werent added just for readability (mostly for me).
+ */
+
  (function($) {
 	$.fn.shorten = function (settings) {
 	
+    "use strict";
+
 		var config = {
 			showChars: 100,
 			ellipsesText: "...",
 			moreText: "more",
-			lessText: "less"
+			lessText: "less",
+            errMsg: null
 		};
 
 		if (settings) {
@@ -56,6 +67,7 @@
                 var bag = ''; // Put the characters to be shown here
                 var countChars = 0; // Current bag size
                 var openTags = []; // Stack for opened tags, so I can close them later
+                var tagName = null;
 				
                 for (var i = 0, r=0; r <= config.showChars; i++) {
                     if (content[i] == '<' && !inTag) {
@@ -66,9 +78,14 @@
 
                         // If its a closing tag
                         if (tagName[0] == '/') {
-                            if (tagName != '/' + openTags[0]) console.log('ERROR en HTML: the top of the stack should be the tag that closes');
-                            else
+
+
+                            if (tagName != '/' + openTags[0]) { 
+                                errMsg = 'ERROR en HTML: the top of the stack should be the tag that closes';
+                            } else {
                                 openTags.shift(); // Pops the last tag from the open tag stack (the tag is closed in the retult HTML!)
+                            }
+
                         } else {
                             // There are some nasty tags that don't have a close tag like <br/>
                             if (tagName.toLowerCase() != 'br') {
@@ -80,11 +97,11 @@
                         inTag = false;
                     }
 
-                    if (inTag) bag += content[i]; // Add tag name chars to the result
+                    if (inTag) { bag += content.charAt(i); } // Add tag name chars to the result
                     else {
 						r++;
                         if (countChars <= config.showChars) {
-                            bag += content[i];
+                           bag += content.charAt(i); // Fix to ie 7 not allowing you to reference string characters using the []
                             countChars++;
                         } else // Now I have the characters needed
                         {
