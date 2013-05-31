@@ -81,7 +81,7 @@
 
 
                             if (tagName != '/' + openTags[0]) { 
-                                errMsg = 'ERROR en HTML: the top of the stack should be the tag that closes';
+                                config.errMsg = 'ERROR en HTML: the top of the stack should be the tag that closes';
                             } else {
                                 openTags.shift(); // Pops the last tag from the open tag stack (the tag is closed in the retult HTML!)
                             }
