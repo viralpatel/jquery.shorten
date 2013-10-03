@@ -20,7 +20,11 @@
     $.fn.shorten = function (settings) {
 
     "use strict";
-
+	    if ($(this).data('jquery.shorten')){
+	    	return false;
+		}
+		$(this).data('jquery.shorten', true);
+		
         var config = {
             showChars: 100,
             ellipsesText: "...",
