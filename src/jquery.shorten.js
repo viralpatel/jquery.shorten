@@ -1,7 +1,7 @@
 ﻿/*
- * jQuery Shorten plugin 1.0.0
+ * jQuery Shorten plugin 1.1.0
  *
- * Copyright (c) 2013 Viral Patel
+ * Copyright (c) 2014 Viral Patel
  * http://viralpatel.net
  *
  * Licensed under the MIT license:
@@ -20,11 +20,11 @@
     $.fn.shorten = function (settings) {
 
     "use strict";
-	    if ($(this).data('jquery.shorten')){
-	    	return false;
-		}
-		$(this).data('jquery.shorten', true);
-		
+        if ($(this).data('jquery.shorten')){
+            return false;
+        }
+        $(this).data('jquery.shorten', true);
+        
         var config = {
             showChars: 100,
             ellipsesText: "...",
@@ -124,15 +124,16 @@
                         }
                     }
                 }
-                c = bag;
+                c = $('<div/>').html(bag + '<span class="ellip">' + config.ellipsesText + '</span>').html();
             }
 
-            var html = '<span class="shortcontent">' + c + '&nbsp;' + config.ellipsesText +
-                '</span><span class="allcontent">' + content +
-                '</span>&nbsp;&nbsp;<span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
+            var html = '<div class="shortcontent">' + c +
+                '</div><div class="allcontent">' + content +
+                '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
 
             $this.html(html);
-            $this.find(".allcontent").hide(); // Esconde el contenido completo para todos los textos
+            $this.find(".allcontent").hide(); // Hide all text
+            $('.shortcontent p:last', $this).css('margin-bottom',0); //Remove bottom margin on last paragraph as it's likely shortened
         }
     });
 
