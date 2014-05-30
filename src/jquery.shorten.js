@@ -127,6 +127,8 @@
                         }
                     }
                     c = $('<div/>').html(bag + '<span class="ellip">' + config.ellipsesText + '</span>').html();
+                }else{
+                    c+=config.ellipsesText;
                 }
 
                 var html = '<div class="shortcontent">' + c +
