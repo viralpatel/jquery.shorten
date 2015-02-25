@@ -66,7 +66,8 @@
             var content = $this.html();
             var contentlen = $this.text().length;
             if (contentlen > config.showChars) {
-                var c = content.substr(0, config.showChars);
+                var nextSpaceIndex = content.substr(config.showChars, contentlen - config.showChars).indexOf(" "); // Index of the first space in the text to hide
+				var c = content.substr(0, parseInt(config.showChars) + parseInt(nextSpaceIndex)); 
                 if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
                 {
                     var inTag = false; // I'm in a tag?
