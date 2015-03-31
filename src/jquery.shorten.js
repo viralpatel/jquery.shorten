@@ -26,7 +26,8 @@
             moreText: "more",
             lessText: "less",
             errMsg: null,
-            force: false
+            force: false,
+            showlines: 4 // show line numbers
         };
 
         if (settings) {
@@ -62,9 +63,50 @@
 
         return this.each(function() {
             var $this = $(this);
-
+            // 20150331 I also used follow two lines in my project, but I'm not sure It's suitable for the public, so just comment here
+            //var content = $this.html().trim();
+            //var contentlen = $this.text().trim().length;
+            //
             var content = $this.html();
             var contentlen = $this.text().length;
+            
+             // 20150330 added by edgar, added function for collapsed by lines
+            var allrows = $this.html().split('<br>');
+            var ilinecount = allrows.length;
+            var collLines = config.showlines;
+
+            if (allrows.length < 1) {
+                var re = /\r\n|\n\r|\n|\r/g;
+                allrows = $this.text().split(re);
+                ilinecount = allrows.length;
+            }
+
+
+            if (ilinecount > collLines && contentlen < config.showChars) {
+                var bag = '';
+                var collContent = '';
+                var collrowcounter = 0;
+                $.each(allrows, function (index, item) {
+                    if (collrowcounter >= collLines)
+                        return;
+                    collContent += item;
+                    collContent += ' <br/> ';
+                    collrowcounter++;
+
+                });
+
+                c = $('<div/>').html(bag + '<span class="ellip">' + collContent.trim() + '</span>').html();
+                var html = '<div class="shortcontent">' + c +
+                    '</div><div class="allcontent">' + content +
+                    '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
+
+                $this.html(html);
+                $this.find(".allcontent").hide(); // Hide all text
+                $('.shortcontent p:last', $this).css('margin-bottom', 0); //Remove bottom margin on last paragraph as it's likely shortened
+                return;
+            }
+            //
+            
             if (contentlen > config.showChars) {
                 var c = content.substr(0, config.showChars);
                 if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
