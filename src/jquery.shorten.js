@@ -21,6 +21,8 @@
         "use strict";
 
         var config = {
+            showLines: 10,
+            signLine: '\n',
             showChars: 100,
             ellipsesText: "...",
             moreText: "more",
@@ -65,8 +67,21 @@
 
             var content = $this.html();
             var contentlen = $this.text().length;
-            if (contentlen > config.showChars) {
-                var c = content.substr(0, config.showChars);
+            // line count custom
+            var lines = $this.text().split(config.signLine);
+            var _showChars = config.showChars;
+            if (lines.length > config.showLines) {
+                var nChar = 0;
+                for (var idx = 0; idx < 3; idx++) {
+                    nChar += lines[idx].length + config.signLine.length;
+                }
+                if (_showChars > nChar) {
+                    _showChars = nChar;
+                }
+            }
+            
+            if (contentlen > _showChars) {
+                var c = content.substr(0, _showChars);
                 if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
                 {
                     var inTag = false; // I'm in a tag?
@@ -75,7 +90,7 @@
                     var openTags = []; // Stack for opened tags, so I can close them later
                     var tagName = null;
 
-                    for (var i = 0, r = 0; r <= config.showChars; i++) {
+                    for (var i = 0, r = 0; r <= _showChars; i++) {
                         if (content[i] == '<' && !inTag) {
                             inTag = true;
 
@@ -106,7 +121,7 @@
                         if (inTag) { bag += content.charAt(i); } // Add tag name chars to the result
                         else {
                             r++;
-                            if (countChars <= config.showChars) {
+                            if (countChars <= _showChars) {
                                 bag += content.charAt(i); // Fix to ie 7 not allowing you to reference string characters using the []
                                 countChars++;
                             } else // Now I have the characters needed
