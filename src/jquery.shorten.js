@@ -22,6 +22,7 @@
 
         var config = {
             showChars: 100,
+            minHideChars: 10,
             ellipsesText: "...",
             moreText: "more",
             lessText: "less",
@@ -65,7 +66,7 @@
 
             var content = $this.html();
             var contentlen = $this.text().length;
-            if (contentlen > config.showChars) {
+            if (contentlen > config.showChars + config.minHideChars) {
                 var c = content.substr(0, config.showChars);
                 if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
                 {
