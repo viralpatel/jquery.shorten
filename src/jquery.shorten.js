@@ -48,14 +48,12 @@
                 if ($this.hasClass('less')) {
                     $this.removeClass('less');
                     $this.html(config.moreText);
-                    $this.parent().prev().prev().show(); // shortcontent
-                    $this.parent().prev().hide(); // allcontent
+                    $this.parent().prev().animate({'height':'0'+'%'}, function () { $this.parent().prev().prev().show(); }).hide('fast');
 
                 } else {
                     $this.addClass('less');
                     $this.html(config.lessText);
-                    $this.parent().prev().prev().hide(); // shortcontent
-                    $this.parent().prev().show(); // allcontent
+                    $this.parent().prev().animate({'height':'100'+'%'}, function () { $this.parent().prev().prev().hide(); }).show('fast');
                 }
                 return false;
             }
