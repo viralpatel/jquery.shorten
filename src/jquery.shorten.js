@@ -22,7 +22,7 @@
 
         var config = {
             showChars: 100,
-            minHideChars: 10,
+            smartTruncate: true,
             ellipsesText: "...",
             moreText: "more",
             lessText: "less",
@@ -64,8 +64,9 @@
 
             var content = $this.html();
             var contentlen = $this.text().length;
-            if (contentlen > config.showChars + config.minHideChars) {
+            if (contentlen > config.showChars) {
                 var c = content.substr(0, config.showChars);
+                var showMore = false;
                 if (c.indexOf('<') >= 0) // If there's HTML don't want to cut it
                 {
                     var inTag = false; // I'm in a tag?
@@ -125,18 +126,53 @@
                             }
                         }
                     }
-                    c = $('<div/>').html(bag + '<span class="ellip">' + config.ellipsesText + '</span>').html();
+                    if (config.smartTruncate) {
+                        config.showChars = bag.length;
+                        var showCharsUpdate = 0;
+                        for (var i = bag.length-1; ; i++) {
+                            if(content[i] !== ' ' && i < content.length) {
+                                showCharsUpdate++;
+                            } else {
+                                break;
+                            }
+                        }
+                        config.showChars+=showCharsUpdate;
+                        bag = content.substr(0, config.showChars);
+                    }
+                    if (bag.length < content.length) {
+                        c = $('<div/>').html(bag + '<span class="ellip">' + config.ellipsesText + '</span>').html();
+                        showMore = true;
+                    } else {
+                        c = bag;
+                    }
                 }else{
-                    c+=config.ellipsesText;
+                    if (config.smartTruncate) {
+                        var showCharsUpdate = 0;
+                        for (var i = config.showChars; i <= contentlen; i++) {
+                            if(content[i] !== ' ') {
+                                showCharsUpdate++;
+                            } else {
+                                break;
+                            }
+                        }
+                        config.showChars+=showCharsUpdate;
+                        c = content.substr(0, config.showChars+1);
+                    }
+                    if (c.length < content.length) {
+                        c+=config.ellipsesText;
+                        showMore = true;
+                    }
                 }
 
-                var html = '<div class="shortcontent">' + c +
-                    '</div><div class="allcontent">' + content +
-                    '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
+                if (showMore) {
+                    var html = '<div class="shortcontent">' + c +
+                        '</div><div class="allcontent">' + content +
+                        '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
 
-                $this.html(html);
-                $this.find(".allcontent").hide(); // Hide all text
-                $('.shortcontent p:last', $this).css('margin-bottom', 0); //Remove bottom margin on last paragraph as it's likely shortened
+                    $this.html(html);
+                    $this.find(".allcontent").hide(); // Hide all text
+                    $('.shortcontent p:last', $this).css('margin-bottom', 0); //Remove bottom margin on last paragraph as it's likely shortened
+                }
             }
         });
 
