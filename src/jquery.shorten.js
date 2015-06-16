@@ -26,6 +26,8 @@
             ellipsesText: "...",
             moreText: "more",
             lessText: "less",
+            moreTextAnimate: false,
+            lessTextAnimate: true,
             errMsg: null,
             force: false
         };
@@ -48,12 +50,22 @@
                 if ($this.hasClass('less')) {
                     $this.removeClass('less');
                     $this.html(config.moreText);
-                    $this.parent().prev().animate({'height':'0'+'%'}, function () { $this.parent().prev().prev().show(); }).hide('fast');
+                    if (config.lessTextAnimate) {
+                        $this.parent().prev().animate({'height':'0'+'%'}, function () { $this.parent().prev().prev().show(); }).hide('fast');
+                    } else {
+                        $this.parent().prev().prev().show(); // shortcontent
+                        $this.parent().prev().hide(); // allcontent
+                    }
 
                 } else {
                     $this.addClass('less');
                     $this.html(config.lessText);
-                    $this.parent().prev().animate({'height':'100'+'%'}, function () { $this.parent().prev().prev().hide(); }).show('fast');
+                    if (config.moreTextAnimate) {
+                        $this.parent().prev().animate({'height':'100'+'%'}, function () { $this.parent().prev().prev().hide(); }).show('fast');
+                    } else {
+                        $this.parent().prev().prev().hide(); // shortcontent
+                        $this.parent().prev().show(); // allcontent
+                    }
                 }
                 return false;
             }
