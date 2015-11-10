@@ -29,7 +29,7 @@ Change the link text to 'read more' and 'read less' overriding default value 'mo
 Override default display 100 characters and hide text above 50 characters.
 
 	$(element).shorten({
-		showChars: '50',
+		showChars: 50,
 	});
 
 Parameters
@@ -37,9 +37,9 @@ Parameters
 You can change the behaviour by changing following js variables.
 
 * `showChar`: Total characters to show to user. If the content is more then showChar, it will be split into two halves and first one will be showed to user.
-* `ellipsesText`: The text displayed before “more” link. Default is “…”
-* `moreText`: The text shown in more link. Default is “more”. You can change to ">>" or "read more"
-* `lessText`: The text shown in less link. Default is “less”. You can change to "<<" or "read less"
+* `ellipsesText`: The text displayed before â€œmoreâ€ link. Default is â€œâ€¦â€
+* `moreText`: The text shown in more link. Default is â€œmoreâ€. You can change to ">>" or "read more"
+* `lessText`: The text shown in less link. Default is â€œlessâ€. You can change to "<<" or "read less"
 
 
 Licence
