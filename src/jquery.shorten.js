@@ -11,9 +11,9 @@
 /*
 ** updated by Jeff Richardson
 ** Updated to use strict,
-** IE 7 has a "bug" It is returning underfined when trying to reference string characters in this format
+** IE 7 has a "bug" It is returning undefined when trying to reference string characters in this format
 ** content[i]. IE 7 allows content.charAt(i) This works fine in all modern browsers.
-** I've also added brackets where they werent added just for readability (mostly for me).
+** I've also added brackets where they weren't added just for readability (mostly for me).
 */
 
 (function($) {
