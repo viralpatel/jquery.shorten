@@ -45,6 +45,18 @@ You can change the behaviour by changing following js variables.
 | `onMore`       | Callback function to trigger when "more" is clicked                                       |
 | `onLess`       | Callback function to trigger when "less" is clicked                                       |
 
+Development
+-----------
+
+Minifying of the source file with uglify-js is registered as npm script.
+To start developing install dependencies:
+
+     $ npm install
+
+After changes of the source file `jquery.shorten.js` the minified version
+`jquery.shorten.min.js` can be generated with the following command.
+
+     $ npm run minify
 
 Licence
 -------
