@@ -2,8 +2,10 @@
   "name": "jquery.shorten",
   "version": "1.0.0",
   "description": "A simple jquery plugin that automatically shortens text within an element and add more link.",
-  "main": "index.js",
-  "dependencies": {},
+  "main": "src/jquery.shorten.js",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  },
   "devDependencies": {
     "uglify-js": "latest"
   },
