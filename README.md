@@ -38,7 +38,7 @@ You can change the behaviour by changing following js variables.
 
 | Property       | Description                                                                               |
 | -------------- | ----------------------------------------------------------------------------------------- |
-| `showChar`     | Total characters to show to user. If the content is more then showChar, it will be split into two halves and first one will be showed to user.                                                                                  |
+| `showChars`     | Total characters to show to user. If the content is more then showChar, it will be split into two halves and first one will be showed to user.                                                                                  |
 | `ellipsesText` | The text displayed before “more” link. Default is “…”                                     |
 | `moreText`     | The text shown in more link. Default is “more”. You can change to ">>" or "read more"     |
 | `lessText`     | The text shown in less link. Default is “less”. You can change to "<<" or "read less"     |
