@@ -26,6 +26,7 @@
             ellipsesText: "...",
             moreText: "more",
             lessText: "less",
+            inline: false,
             onLess: function() {},
             onMore: function() {},
             errMsg: null,
@@ -135,11 +136,15 @@
                 }else{
                     c+=config.ellipsesText;
                 }
-
-                var html = '<div class="shortcontent">' + c +
-                    '</div><div class="allcontent">' + content +
-                    '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
-
+                if(config.inline) {
+                    var wrapper_tag = 'span';
+                } else { 
+                    var wrapper_tag = 'div';
+                }
+                
+                var html = '<' + wrapper_tag + ' class="shortcontent">' + c +
+                        '</' + wrapper_tag + '><' + wrapper_tag + ' class="allcontent">' + content +
+                        '</' + wrapper_tag + '> <span><a href="#" class="morelink">' + config.moreText + '</a></span>';
                 $this.html(html);
                 $this.find(".allcontent").hide(); // Hide all text
                 $('.shortcontent p:last', $this).css('margin-bottom', 0); //Remove bottom margin on last paragraph as it's likely shortened
