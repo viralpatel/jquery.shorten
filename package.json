@@ -1,0 +1,26 @@
+{
+  "name": "jquery.shorten",
+  "version": "1.0.0",
+  "description": "A simple jquery plugin that automatically shortens text within an element and add more link.",
+  "main": "src/jquery.shorten.js",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {
+    "uglify-js": "latest"
+  },
+  "scripts": {
+    "minify": "uglifyjs src/jquery.shorten.js > src/jquery.shorten.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viralpatel/jquery.shorten.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/viralpatel/jquery.shorten/issues"
+  },
+  "homepage": "https://github.com/viralpatel/jquery.shorten#readme"
+}
